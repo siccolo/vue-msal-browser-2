@@ -86,6 +86,49 @@ var msalPlugin = /** @class */ (function (_super) {
             .then(function (response) { return response; })
             .catch(function (error) { return console.log(error); });
     };
+    //  additional ones
+    msalPlugin.prototype.callMSGraphWithCallback = function (endpoint, accessToken, callback) {
+        var headers = new Headers();
+        var bearer = "Bearer ".concat(accessToken);
+        headers.append("Authorization", bearer);
+        var options = {
+            method: "GET",
+            headers: headers
+        };
+        fetch(endpoint, options)
+            .then(function (response) { return response.json(); })
+            .then(function (response) { return callback(response, endpoint); })
+            .catch(function (error) { return console.log(error); });
+    };
+    msalPlugin.prototype.callMSGraphAsPromise = function (endpoint, accessToken, callback) {
+        var headers = new Headers();
+        var bearer = "Bearer ".concat(accessToken);
+        headers.append("Authorization", bearer);
+        var options = {
+            method: "GET",
+            headers: headers
+        };
+        return fetch(endpoint, options)
+            .then(function (response) { return response.json(); })
+            .catch(function (error) { return console.log(error); });
+    };
+    msalPlugin.prototype.postMSGraph = function (endpoint, accessToken, data, callback) {
+        var headers = new Headers();
+        var bearer = "Bearer ".concat(accessToken);
+        headers.append("Authorization", bearer);
+        headers.append('Accept', 'application/json, text/plain, */*');
+        headers.append('Content-Type', 'application/json');
+        var options = {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data)
+        };
+        fetch(endpoint, options)
+            .then(function (response) { return response.json(); })
+            .then(function (response) { return callback(response, endpoint); })
+            .catch(function (error) { return console.log(error); });
+    };
+    //  additional ones
     msalPlugin.prototype.getSilentToken = function (account, scopes) {
         if (scopes === void 0) { scopes = ["User.Read"]; }
         return __awaiter(this, void 0, void 0, function () {

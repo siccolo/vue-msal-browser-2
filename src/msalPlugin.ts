@@ -39,6 +39,61 @@ export default class msalPlugin extends msal.PublicClientApplication {
       .then((response) => response)
       .catch((error) => console.log(error));
   }
+  //  additional ones
+  callMSGraphWithCallback(endpoint: string, accessToken: string, callback:any) 
+  {
+      const headers = new Headers();
+      const bearer = `Bearer ${accessToken}`;
+
+      headers.append("Authorization", bearer);
+
+      const options = {
+          method: "GET",
+          headers: headers
+      };
+
+      fetch(endpoint, options)
+        .then(response => response.json())
+        .then(response => callback(response, endpoint))
+        .catch(error => console.log(error));
+  }
+  callMSGraphAsPromise(endpoint: string, accessToken: string, callback:any) 
+  {
+      const headers = new Headers();
+      const bearer = `Bearer ${accessToken}`;
+
+      headers.append("Authorization", bearer);
+
+      const options = {
+          method: "GET",
+          headers: headers
+      };
+
+      return fetch(endpoint, options)
+          .then(response => response.json())
+          .catch(error => console.log(error));
+    }
+    postMSGraph(endpoint: string, accessToken: string, data:any, callback:any) 
+    {
+        const headers = new Headers();
+        const bearer = `Bearer ${accessToken}`;
+    
+        headers.append("Authorization", bearer);
+        headers.append('Accept', 'application/json, text/plain, */*');
+        headers.append('Content-Type', 'application/json');
+    
+        const options = {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data)
+        };
+    
+        fetch(endpoint, options)
+            .then(response => response.json())
+            .then(response => callback(response, endpoint))
+            .catch(error => console.log(error));
+    }
+  //  additional ones
 
   async getSilentToken(
     account: msal.AccountInfo,
@@ -79,6 +134,7 @@ export default class msalPlugin extends msal.PublicClientApplication {
   async authenticatePopup(): Promise<msal.AuthenticationResult> {
     return await this.loginPopup(this.loginRequest);
   }
+
 }
 
 export { msalInstance, ExtendedConfiguration, ExtendedBrowserAuthOptions };
