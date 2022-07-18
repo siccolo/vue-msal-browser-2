@@ -109,6 +109,20 @@ export default class msalPlugin extends msal.PublicClientApplication {
     });
   }
 
+  async getSilentTokenPopup(
+    account: msal.AccountInfo,
+    scopes: string[] = ["User.Read"]
+  ): Promise<msal.AuthenticationResult | void> {
+    const silentRequest = { account, scopes };
+    return await this.acquireTokenSilent(silentRequest).catch((error) => {
+      console.error(error);
+      if (error instanceof msal.InteractionRequiredAuthError) {
+        // fallback to interaction when silent call fails
+        return this.acquireTokenPopup(silentRequest);
+      }
+    });
+  }
+
   async authenticate(): Promise<
     msal.AccountInfo[] | msal.AuthenticationResult
   > {

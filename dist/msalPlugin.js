@@ -150,6 +150,27 @@ var msalPlugin = /** @class */ (function (_super) {
             });
         });
     };
+    msalPlugin.prototype.getSilentTokenPopup = function (account, scopes) {
+        if (scopes === void 0) { scopes = ["User.Read"]; }
+        return __awaiter(this, void 0, void 0, function () {
+            var silentRequest;
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        silentRequest = { account: account, scopes: scopes };
+                        return [4 /*yield*/, this.acquireTokenSilent(silentRequest).catch(function (error) {
+                                console.error(error);
+                                if (error instanceof msal.InteractionRequiredAuthError) {
+                                    // fallback to interaction when silent call fails
+                                    return _this.acquireTokenPopup(silentRequest);
+                                }
+                            })];
+                    case 1: return [2 /*return*/, _a.sent()];
+                }
+            });
+        });
+    };
     msalPlugin.prototype.authenticate = function () {
         return __awaiter(this, void 0, void 0, function () {
             var _a;
