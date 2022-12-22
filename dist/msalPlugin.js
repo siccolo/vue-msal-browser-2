@@ -123,7 +123,7 @@ var msalPlugin = /** @class */ (function (_super) {
             headers: headers,
             body: JSON.stringify(data)
         };
-        fetch(endpoint, options)
+        return fetch(endpoint, options)
             .then(function (response) { return response.json(); })
             .then(function (response) { return callback(response, endpoint); })
             .catch(function (error) { return console.log(error); });
@@ -139,7 +139,7 @@ var msalPlugin = /** @class */ (function (_super) {
             headers: headers,
             body: JSON.stringify(data)
         };
-        fetch(endpoint, options)
+        return fetch(endpoint, options)
             .then(function (response) { return response.json(); })
             .catch(function (error) { return console.log(error); });
     };

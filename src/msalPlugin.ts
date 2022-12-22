@@ -88,7 +88,7 @@ export default class msalPlugin extends msal.PublicClientApplication {
           body: JSON.stringify(data)
       };
   
-      fetch(endpoint, options)
+      return fetch(endpoint, options)
           .then(response => response.json())
           .then(response => callback(response, endpoint))
           .catch(error => console.log(error));
@@ -108,7 +108,7 @@ export default class msalPlugin extends msal.PublicClientApplication {
           body: JSON.stringify(data)
       };
   
-      fetch(endpoint, options)
+      return fetch(endpoint, options)
           .then(response => response.json())
           .catch(error => console.log(error));
   }
