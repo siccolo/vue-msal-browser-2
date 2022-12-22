@@ -20,6 +20,7 @@ export default class msalPlugin extends msal.PublicClientApplication {
     callMSGraphWithCallback(endpoint: string, accessToken: string, callback: any): void;
     callMSGraphAsPromise(endpoint: string, accessToken: string, callback: any): Promise<any>;
     postMSGraph(endpoint: string, accessToken: string, data: any, callback: any): void;
+    postMSGraphAsPromise(endpoint: string, accessToken: string, data: any, callback: any): void;
     getSilentToken(account: msal.AccountInfo, scopes?: string[]): Promise<msal.AuthenticationResult | void>;
     getSilentTokenPopup(account: msal.AccountInfo, scopes?: string[]): Promise<msal.AuthenticationResult | void>;
     authenticate(): Promise<msal.AccountInfo[] | msal.AuthenticationResult>;

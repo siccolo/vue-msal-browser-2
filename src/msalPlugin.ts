@@ -72,27 +72,46 @@ export default class msalPlugin extends msal.PublicClientApplication {
       return fetch(endpoint, options)
           .then(response => response.json())
           .catch(error => console.log(error));
-    }
-    postMSGraph(endpoint: string, accessToken: string, data:any, callback:any) 
-    {
-        const headers = new Headers();
-        const bearer = `Bearer ${accessToken}`;
-    
-        headers.append("Authorization", bearer);
-        headers.append('Accept', 'application/json, text/plain, */*');
-        headers.append('Content-Type', 'application/json');
-    
-        const options = {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(data)
-        };
-    
-        fetch(endpoint, options)
-            .then(response => response.json())
-            .then(response => callback(response, endpoint))
-            .catch(error => console.log(error));
-    }
+  }
+  postMSGraph(endpoint: string, accessToken: string, data:any, callback:any) 
+  {
+      const headers = new Headers();
+      const bearer = `Bearer ${accessToken}`;
+  
+      headers.append("Authorization", bearer);
+      headers.append('Accept', 'application/json, text/plain, */*');
+      headers.append('Content-Type', 'application/json');
+  
+      const options = {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(data)
+      };
+  
+      fetch(endpoint, options)
+          .then(response => response.json())
+          .then(response => callback(response, endpoint))
+          .catch(error => console.log(error));
+  }
+  postMSGraphAsPromise(endpoint: string, accessToken: string, data:any, callback:any) 
+  {
+      const headers = new Headers();
+      const bearer = `Bearer ${accessToken}`;
+  
+      headers.append("Authorization", bearer);
+      headers.append('Accept', 'application/json, text/plain, */*');
+      headers.append('Content-Type', 'application/json');
+  
+      const options = {
+          method: "POST",
+          headers: headers,
+          body: JSON.stringify(data)
+      };
+  
+      fetch(endpoint, options)
+          .then(response => response.json())
+          .catch(error => console.log(error));
+  }
   //  additional ones
 
   async getSilentToken(
@@ -148,6 +167,9 @@ export default class msalPlugin extends msal.PublicClientApplication {
   async authenticatePopup(): Promise<msal.AuthenticationResult> {
     return await this.loginPopup(this.loginRequest);
   }
+
+  //  -- allow to be used under service --
+  //  -- allow to be used under service --
 
 }
 

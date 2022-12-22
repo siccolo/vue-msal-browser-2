@@ -128,6 +128,21 @@ var msalPlugin = /** @class */ (function (_super) {
             .then(function (response) { return callback(response, endpoint); })
             .catch(function (error) { return console.log(error); });
     };
+    msalPlugin.prototype.postMSGraphAsPromise = function (endpoint, accessToken, data, callback) {
+        var headers = new Headers();
+        var bearer = "Bearer ".concat(accessToken);
+        headers.append("Authorization", bearer);
+        headers.append('Accept', 'application/json, text/plain, */*');
+        headers.append('Content-Type', 'application/json');
+        var options = {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data)
+        };
+        fetch(endpoint, options)
+            .then(function (response) { return response.json(); })
+            .catch(function (error) { return console.log(error); });
+    };
     //  additional ones
     msalPlugin.prototype.getSilentToken = function (account, scopes) {
         if (scopes === void 0) { scopes = ["User.Read"]; }
