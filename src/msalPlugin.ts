@@ -57,7 +57,7 @@ export default class msalPlugin extends msal.PublicClientApplication {
         .then(response => callback(response, endpoint))
         .catch(error => console.log(error));
   }
-  callMSGraphAsPromise(endpoint: string, accessToken: string, callback:any) 
+  callMSGraphAsPromise(endpoint: string, accessToken: string) 
   {
       const headers = new Headers();
       const bearer = `Bearer ${accessToken}`;
@@ -93,7 +93,7 @@ export default class msalPlugin extends msal.PublicClientApplication {
           .then(response => callback(response, endpoint))
           .catch(error => console.log(error));
   }
-  postMSGraphAsPromise(endpoint: string, accessToken: string, data:any, callback:any) 
+  postMSGraphAsPromise(endpoint: string, accessToken: string, data:any) 
   {
       const headers = new Headers();
       const bearer = `Bearer ${accessToken}`;

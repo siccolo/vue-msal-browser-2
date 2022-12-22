@@ -100,7 +100,7 @@ var msalPlugin = /** @class */ (function (_super) {
             .then(function (response) { return callback(response, endpoint); })
             .catch(function (error) { return console.log(error); });
     };
-    msalPlugin.prototype.callMSGraphAsPromise = function (endpoint, accessToken, callback) {
+    msalPlugin.prototype.callMSGraphAsPromise = function (endpoint, accessToken) {
         var headers = new Headers();
         var bearer = "Bearer ".concat(accessToken);
         headers.append("Authorization", bearer);
@@ -128,7 +128,7 @@ var msalPlugin = /** @class */ (function (_super) {
             .then(function (response) { return callback(response, endpoint); })
             .catch(function (error) { return console.log(error); });
     };
-    msalPlugin.prototype.postMSGraphAsPromise = function (endpoint, accessToken, data, callback) {
+    msalPlugin.prototype.postMSGraphAsPromise = function (endpoint, accessToken, data) {
         var headers = new Headers();
         var bearer = "Bearer ".concat(accessToken);
         headers.append("Authorization", bearer);
